@@ -45,7 +45,7 @@ def main():
         check("handoff exists", (home / "handoff.json").is_file())
         check("engine copied", (home / "engine" / "run.py").is_file())
         check("six shelves created", all((home / sv["library"] / s).is_dir()
-              for s in ("项目", "资产", "技能与模板", "资源", "灵感库", "归档")))
+              for s in ("00 - 灵感库", "01-Projects（项目库）", "02-Areas（资产库）", "03-Resources（资源库）", "04-Archive（归档库）", "05-Skills（技能库）")))
 
         engine = [sys.executable, "-B", str(home / "engine" / "run.py"),
                   "--vault", str(home), "--key", key]
@@ -76,24 +76,24 @@ def main():
         check("empty hint", call({"op": "hint"})["result"]["total"] == 0)
 
         # ---- explicit-save gate ----
-        gated = call({"op": "note", "shelf": "资产", "title": "不应保存", "body": "x"})
+        gated = call({"op": "note", "shelf": "02-Areas（资产库）", "title": "不应保存", "body": "x"})
         check("save without consent refused", gated["ok"] is False, gated.get("error", "")[:40])
         check("nothing written by gated call",
               call({"op": "scan"})["result"]["total"] == 0)
 
         # ---- create owned note ----
         made = call({"op": "note", "consent": "记下来", "ask": "保存这条",
-                     "shelf": "资产", "title": "复盘笔记", "body": "我的理解和做法。",
+                     "shelf": "02-Areas（资产库）", "title": "复盘笔记", "body": "我的理解和做法。",
                      "tags": ["复盘"], "origin": "本次对话"})
         check("note created", made["ok"] and made["result"]["created"] == 1, str(made)[:80])
         path = made["result"]["path"]
-        check("note on owned shelf", path.startswith("资产/"), path)
+        check("note on owned shelf", path.startswith("02-Areas（资产库）/"), path)
 
-        dup = call({"op": "note", "consent": "记下来", "shelf": "资产",
+        dup = call({"op": "note", "consent": "记下来", "shelf": "02-Areas（资产库）",
                     "title": "复盘笔记", "body": "我的理解和做法。"})
         check("identical body deduped", dup["result"].get("status") == "duplicate")
 
-        outside = call({"op": "note", "consent": "记下来", "shelf": "资源",
+        outside = call({"op": "note", "consent": "记下来", "shelf": "03-Resources（资源库）",
                         "title": "外部文章", "body": "别人写的。"})
         check("outside note created", outside["ok"])
 
@@ -105,7 +105,7 @@ def main():
         check("outside scan finds only outside", outside_scan["result"]["total"] == 1)
         all_scan = call({"op": "scan", "scope": "all"})
         check("all scan finds both", all_scan["result"]["total"] == 2)
-        escaped = call({"op": "open", "scope": "own", "path": "资源/外部文章.md"})
+        escaped = call({"op": "open", "scope": "own", "path": "03-Resources（资源库）/外部文章.md"})
         check("cross-scope read rejected", escaped["ok"] is False)
 
         # ---- search ----
@@ -152,7 +152,7 @@ def main():
         tidy = call({"op": "tidy", "consent": "记下来"})
         check("navigation rebuilt", tidy["ok"] and tidy["result"]["owned_notes"] == 1,
               str(tidy.get("result"))[:60])
-        nav_today = home / sv["library"] / "项目" / "每日流" / "今日.md"
+        nav_today = home / sv["library"] / "01-Projects（项目库）" / "每日流" / "今日.md"
         check("today note written", nav_today.is_file() and "复盘" in nav_today.read_text(encoding="utf-8"))
 
         # ---- instance manager ops ----
@@ -163,7 +163,7 @@ def main():
         frozen = manager.flip_phase(home, key, cfg["rev"], "冻结", frozen=True)
         check("freeze ok", frozen["phase"] == "frozen", str(frozen)[:80])
         check("frozen instance rejects writes", call({"op": "note", "consent": "记下来",
-              "shelf": "资产", "title": "x", "body": "y"})["ok"] is False)
+              "shelf": "02-Areas（资产库）", "title": "x", "body": "y"})["ok"] is False)
         revived = manager.flip_phase(home, key, frozen["rev"], "恢复", frozen=False)
         check("revive ok", revived["phase"] == "ready", str(revived)[:80])
 

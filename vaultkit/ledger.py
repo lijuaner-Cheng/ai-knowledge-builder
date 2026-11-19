@@ -11,13 +11,20 @@ from pathlib import Path
 
 from . import codec, seal
 
-OWN_SHELVES = ("项目", "资产", "技能与模板")
-OUT_SHELVES = ("资源", "灵感库")
-HISTORY_SHELF = "归档"
-SHELVES = OWN_SHELVES + OUT_SHELVES + (HISTORY_SHELF,)
+OWN_SHELVES = ("01-Projects（项目库）", "02-Areas（资产库）", "05-Skills（技能库）")
+OUT_SHELVES = ("00 - 灵感库", "03-Resources（资源库）")
+HISTORY_SHELF = "04-Archive（归档库）"
+SHELVES = (
+    "00 - 灵感库",
+    "01-Projects（项目库）",
+    "02-Areas（资产库）",
+    "03-Resources（资源库）",
+    "04-Archive（归档库）",
+    "05-Skills（技能库）",
+)
 
-# 与原始方案一致的导航子目录，导航不算知识正文，检索时排除。
-NAV_REL = "项目/每日流"
+# 导航子目录挂在 Projects 架子下，不算知识正文，检索时排除。
+NAV_REL = "01-Projects（项目库）/每日流"
 
 SCOPE_SHELVES = {
     "own": set(OWN_SHELVES),
