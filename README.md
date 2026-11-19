@@ -6,7 +6,7 @@
 
 把本 Skill 发布到你自己的 Git 仓库，任何人把下面这句话发给有本地文件读写、命令执行和 Python 3.9+ 能力的 Agent，即可完成初始搭建：
 
-> 请按这个 Skill 帮我搭建自己的 AI 知识库：[https://github.com/lijuaner-Cheng/personal-kb-skill]
+> 请按这个 Skill 帮我搭建自己的 AI 知识库：[https://github.com/lijuaner-Cheng/ai-knowledge-builder]
 
 把链接换成仓库实际地址。Agent 会读取完整仓库、检查依赖、选择被授权的持久化目录、保护已知的旧库，然后创建**一套空的正式库**。不需要你提供 UUID、参数、模式或验收计划。没有可用持久目录时，宿主会请求目录权限。
 

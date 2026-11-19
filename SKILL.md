@@ -7,7 +7,7 @@ description: Build an isolated, Obsidian-readable personal knowledge base from a
 
 把对话当作入口，Markdown 当作唯一知识载体，Obsidian 当作可选的阅读和编辑工具。用户用一句话加仓库链接即可启动，例如：
 
-> 请按这个 Skill 帮我搭建自己的 AI 知识库：[https://github.com/lijuaner-Cheng/personal-kb-skill]
+> 请按这个 Skill 帮我搭建自己的 AI 知识库：[https://github.com/lijuaner-Cheng/ai-knowledge-builder]
 
 **必须读取完整仓库，不是单个文件。** 只拿 SKILL.md 会丢失 `vaultkit/` 运行时，无法搭建。Agent 应克隆或下载整个仓库到被允许的目录后再执行。
 
