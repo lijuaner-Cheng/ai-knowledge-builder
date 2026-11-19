@@ -27,7 +27,7 @@ configure 从 stdin 收一个 JSON 对象，可改 title / zone / review_clock /
 - scan/find 返回 total、offset、limit、items；默认 50，最多 500。空格分词为 AND，标题、正文、标签、别名都参与检索。
 - 默认排除已归档。查归档用 `{"op":"scan","scope":"own","include_archived":true}`，也可对 find 加 include_archived。结果里按 properties.status=archived 区分，取到真实 path 后 open 再 unarchive；仍要翻页，不凭旧记忆猜路径。
 - `note`：`{"op":"note","consent":"记下来","ask":"保存这条","shelf":"02-Areas（资产库）","title":"练习记录","body":"我的理解。","source":"本次对话"}`
-- 写入操作（note/revise/archive/unarchive/rewind/tidy/configure_reminders）都要求 consent 或 ask 里出现"记下来"。shelf 只能是 00 - 灵感库 / 01-Projects（项目库） / 02-Areas（资产库） / 03-Resources（资源库） / 05-Skills（技能库），不能直接写 04-Archive（归档库）。相同正文在同架子内去重，status=duplicate 不算新增；同标题异文拒绝覆盖。
+- 写入操作（note/revise/archive/unarchive/rewind/tidy/configure_reminders）都要求 consent 或 ask 里出现"记下来"。shelf 只能是 00-灵感库 / 01-Projects（项目库） / 02-Areas（资产库） / 03-Resources（资源库） / 05-Skills（技能库），不能直接写 04-Archive（归档库）。相同正文在同架子内去重，status=duplicate 不算新增；同标题异文拒绝覆盖。
 - `revise`：`{"op":"revise","consent":"记下来","path":"02-Areas（资产库）/练习记录.md","expected_revision":"<open返回的revision>","body":"新完整正文","properties":{"tags":["练习"],"aliases":["反馈记录"]}}`
 - body 与 properties 可分别或同时传。properties 支持 title/kind/state/origin/due/review/tags/aliases。改 title 不改文件路径。
 - `archive` / `unarchive`：op 与 consent 都要给，再传 path、expected_revision。原位恢复，不物理删除。

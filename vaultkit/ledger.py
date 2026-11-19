@@ -12,10 +12,10 @@ from pathlib import Path
 from . import codec, seal
 
 OWN_SHELVES = ("01-Projects（项目库）", "02-Areas（资产库）", "05-Skills（技能库）")
-OUT_SHELVES = ("00 - 灵感库", "03-Resources（资源库）")
+OUT_SHELVES = ("00-灵感库", "03-Resources（资源库）")
 HISTORY_SHELF = "04-Archive（归档库）"
 SHELVES = (
-    "00 - 灵感库",
+    "00-灵感库",
     "01-Projects（项目库）",
     "02-Areas（资产库）",
     "03-Resources（资源库）",
@@ -54,6 +54,9 @@ def _iter_notes(vault: Path, shelves: set[str], include_archived: bool) -> list[
         if not base.is_dir():
             continue
         for path in sorted(base.rglob("*.md")):
+            # 下划线开头的是系统占位文件（如 _架子说明.md），不是知识笔记
+            if path.name.startswith("_"):
+                continue
             rel = path.relative_to(vault).as_posix()
             if rel.startswith(NAV_REL + "/"):
                 continue

@@ -80,7 +80,7 @@ def create(parent, title, tier, zone, review_clock="20:30", moats=()) -> dict:
             "模式：" + tier + "\n\n"
             "钥匙：`" + key + "`\n\n"
             "在对话里明确说「记下来」才会保存。找「我的」内容只看 01-Projects / 02-Areas / 05-Skills；\n"
-            "00 - 灵感库 与 03-Resources 属于外部输入，04-Archive 不改变归属。\n\n"
+            "00-灵感库 与 03-Resources 属于外部输入，04-Archive 不改变归属。\n\n"
             "同一对话继续聊；换对话时把本实例目录下的 handoff.json 交给新 Agent。\n",
             encoding="utf-8")
         compass.rebuild(vault, zone)

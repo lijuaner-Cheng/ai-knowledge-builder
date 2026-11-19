@@ -45,7 +45,7 @@ def main():
         check("handoff exists", (home / "handoff.json").is_file())
         check("engine copied", (home / "engine" / "run.py").is_file())
         check("six shelves created", all((home / sv["library"] / s).is_dir()
-              for s in ("00 - 灵感库", "01-Projects（项目库）", "02-Areas（资产库）", "03-Resources（资源库）", "04-Archive（归档库）", "05-Skills（技能库）")))
+              for s in ("00-灵感库", "01-Projects（项目库）", "02-Areas（资产库）", "03-Resources（资源库）", "04-Archive（归档库）", "05-Skills（技能库）")))
 
         engine = [sys.executable, "-B", str(home / "engine" / "run.py"),
                   "--vault", str(home), "--key", key]
