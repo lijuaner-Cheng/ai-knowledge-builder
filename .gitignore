@@ -1,0 +1,15 @@
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+env/
+
+# 实例运行时产物，不进仓库
+handoff.json
+seal.json
+*.zip
+
+# 系统垃圾
+.DS_Store
+Thumbs.db
+desktop.ini
